@@ -27,6 +27,7 @@ export default class AddItem extends React.Component {
      */
     async addItemToList(itemName) {
         console.log('AddItem.js -> addItemToList itemName: ' + itemName);
+        console.log('AddItem.js -> data list: ' + this.props.data);
         let updatedList = await this.state.data.push(itemName);
         console.log('AddItem.js -> addItemToList updatedList: ' + updatedList);
         // await this.setState({
