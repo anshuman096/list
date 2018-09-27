@@ -51,7 +51,8 @@ export default class AddItem extends React.Component {
                         placeholder = 'Item Name'
                         autoCapitalize = 'none'
                         onChangeText = {(text) => this.setState({itemName: text})}
-                        blurOnSubmit = {true}/>
+                        blurOnSubmit = {true}
+                    />
                 </View>
                 <TouchableOpacity style = {styles.submitButtonContainer}
                     onPress = { async () => {

@@ -42,7 +42,7 @@ export default class ShoppingList extends React.Component {
      *
      * @return: boolean, true or false to determine re-rendering status
      */
-    shouldComponentUpdate(nextProps) {
+    shouldComponentUpdate() {
          if(this.state.refresh == false) {
              this.setState({
                  refresh: true
@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
     },
     list: {
         flexDirection: 'row',
-        alignSelf: 'stretch'
+        alignSelf: 'stretch',
+        backgroundColor: '#f1f1f2'
     }
 });
