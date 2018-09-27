@@ -6,16 +6,23 @@ import { View,
     TextInput,
     TouchableOpacity
 } from 'react-native';
-
+//import { addTodo } from '../actions/actions.js';
 
 
 export default class AddItem extends React.Component {
+
+    /**
+     * Method that is called upon each render of
+     * AddItem component. Initializes state to hold
+     * the name of the item to be added, and a copy of
+     * the to do list, so it can be updated.
+     *
+     */
     constructor(props) {
         super(props);
         this.state = {
-            itemName: '',
-            //itemAdded: false,
-            data: this.props.data
+            itemName: "",
+            data: this.props.navigation.state.params.data
         };
     }
 
@@ -23,20 +30,19 @@ export default class AddItem extends React.Component {
      * addItemToList pushes the current itemName into the data list stored
      * in the state variable, and then sets the boolean for whether the itemName
      * has been added to the data list or not.
-     * (TO BE CHANGED)
+     *
      */
-    async addItemToList(itemName) {
-        console.log('AddItem.js -> addItemToList itemName: ' + itemName);
-        console.log('AddItem.js -> data list: ' + this.props.data);
-        let updatedList = await this.state.data.push(itemName);
-        console.log('AddItem.js -> addItemToList updatedList: ' + updatedList);
-        // await this.setState({
-        //     data: updatedList,
-        //     itemAdded: true
-        // });
-        this.props.navigation.navigate('ShoppingListName', {data: updatedList});
+    async addItemToList(itemEntered) {
+        var itemDict = {
+            item: itemEntered,
+            active: true
+        }
+        await this.state.data.push(itemDict);
     }
 
+    /**
+     * Standard render function for React component
+     */
     render() {
         return(
             <View style = {styles.mainContainer}>
@@ -48,11 +54,11 @@ export default class AddItem extends React.Component {
                         blurOnSubmit = {true}/>
                 </View>
                 <TouchableOpacity style = {styles.submitButtonContainer}
-                    onPress = {() => {
-                        console.log('AddItem.js -> render about to add ' + this.state.itemName + ' to list');
+                    onPress = { async () => {
                         this.addItemToList(this.state.itemName);
+                        this.props.navigation.navigate('ShoppingListName', { data:this.state.data });
                     }}>
-                        <Text style = {styles.submitButtonLabel}>Add</Text>
+                    <Text style = {styles.submitButtonLabel}>Add</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -69,7 +75,8 @@ const styles = StyleSheet.create({
     itemNameContainer: {
         flex: 7,
         flexDirection: 'row',
-        justifyContent: 'center',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
         backgroundColor: '#f1f1f2'
     },
     submitButtonContainer: {
@@ -79,6 +86,7 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     itemNameLabel: {
+        flex: 1,
         alignItems: 'center',
         borderBottomWidth: 1,
         borderBottomColor: '#bcbabe',

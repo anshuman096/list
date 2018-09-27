@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { createStackNavigator } from 'react-navigation';
-import AddItem from './src/AddItem';
-import ShoppingList from './src/ShoppingList';
+import AddItem from './screens/addItem';
+import ShoppingList from './screens/shoppingList';
 
 export default class App extends React.Component {
     render() {
@@ -12,12 +12,7 @@ export default class App extends React.Component {
 }
 
 const routeConfigs = {
-    ShoppingListName: {
-        screen: ShoppingList,
-        navigationOptions: {
-            headerVisible: false
-        }
-    },
+    ShoppingListName: ShoppingList,
     AddItemName: AddItem
 };
 
