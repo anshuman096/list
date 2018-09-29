@@ -35,7 +35,8 @@ export default class AddItem extends React.Component {
     async addItemToList(itemEntered) {
         var itemDict = {
             item: itemEntered,
-            active: true
+            active: true,
+            index: (this.state.data.length + 1).toString()
         }
         await this.state.data.push(itemDict);
         this.props.navigation.navigate('ShoppingListName', { data:this.state.data });

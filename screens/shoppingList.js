@@ -10,10 +10,8 @@ import { StyleSheet,
      List,
      ListItem
  } from 'react-native-elements';
-//import { createStore, combineReducers } from 'redux';
 import { createStackNavigator } from 'react-navigation';
 import ShoppingListItem from '../utils/listItem';
-//import { VisibilityFilters } from '../actions/actions.js';
 
 
 export default class ShoppingList extends React.Component {
@@ -28,7 +26,19 @@ export default class ShoppingList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
+            active: [],
+            inactive: [
+                {
+                    item: "Dog Food",
+                    active: false,
+                    index: 1
+                },
+                {
+                    item: "Clothes",
+                    active: false,
+                    index: 2
+                }
+            ],
             refresh: true
         }
     }
@@ -54,15 +64,24 @@ export default class ShoppingList extends React.Component {
      }
 
 
-     _renderItem = ({item}) => (
+     /**
+      * A callback function for FlatList's renderItem. This function
+      * returns a ShoppingListItem component, which is just a ListItem
+      * component wrapped in a React.PureComponent via inheritance.
+      *
+      * @return: ShoppingListItem, component to render in FlatList
+      */
+     renderItem = ({item}) => (
         <ShoppingListItem
             name = {item.item}
+            status = {item.active}
         />
     );
 
 
      /**
       * Render function for React component.
+      *
       */
     render() {
         return(
@@ -73,10 +92,10 @@ export default class ShoppingList extends React.Component {
                 <View style = {styles.listContainer}>
                     <List style = {styles.list}>
                         <FlatList
-                            data = {this.state.data}
+                            data = {this.state.active}
                             extraData = {this.state}
-                            keyExtractor = {item => item.item}
-                            renderItem = {this._renderItem}
+                            keyExtractor = {item => item.index}
+                            renderItem = {this.renderItem}
                         />
                     </List>
                 </View>
@@ -85,7 +104,7 @@ export default class ShoppingList extends React.Component {
                         this.setState({
                             refresh: false
                         });
-                        this.props.navigation.navigate('AddItemName', {data: this.state.data});
+                        this.props.navigation.navigate('AddItemName', {data: this.state.active});
                     }}>
                     <Text style = {styles.buttonLabel}>Add Item</Text>
                 </TouchableOpacity>

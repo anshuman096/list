@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import {
     createStackNavigator,
     createBottomTabNavigator
@@ -6,14 +5,6 @@ import {
 import AddItem from './screens/addItem';
 import ShoppingList from './screens/shoppingList';
 import CompletedList from './screens/completedList';
-
-export default class App extends React.Component {
-    render() {
-        return (
-            <AppNavigator />
-        );
-    }
-}
 
 
 // Navigation configurations for a stack navigator that represents
@@ -33,12 +24,12 @@ const ListAddition = createStackNavigator(stackRouteConfigs, StackNavigatorConfi
 // Navigation configurations for app level navigation via  tab navigator.
 // Will navigate between the to do list of active items and inactive items.
 const tabRouteConfigs = {
-    ActiveList: ListAddition,
-    InactiveList: CompletedList
+    Active: ListAddition,
+    Completed: CompletedList
 };
 
 const TabNavigatorConfigs = {
-    initialRouteName: 'ActiveList',
+    initialRouteName: 'Active',
     tabBarOptions: {
         activeTintColor: '#000000',
         inactiveTintcolor: '#bcbabe'
@@ -46,3 +37,5 @@ const TabNavigatorConfigs = {
 };
 
 const AppNavigator = createBottomTabNavigator(tabRouteConfigs, TabNavigatorConfigs);
+
+export default AppNavigator;
