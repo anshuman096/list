@@ -38,7 +38,9 @@ export default class AddItem extends React.Component {
             active: true
         }
         await this.state.data.push(itemDict);
+        this.props.navigation.navigate('ShoppingListName', { data:this.state.data });
     }
+
 
     /**
      * Standard render function for React component
@@ -57,7 +59,6 @@ export default class AddItem extends React.Component {
                 <TouchableOpacity style = {styles.submitButtonContainer}
                     onPress = { async () => {
                         this.addItemToList(this.state.itemName);
-                        this.props.navigation.navigate('ShoppingListName', { data:this.state.data });
                     }}>
                     <Text style = {styles.submitButtonLabel}>Add</Text>
                 </TouchableOpacity>

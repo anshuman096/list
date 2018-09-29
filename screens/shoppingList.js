@@ -12,6 +12,7 @@ import { StyleSheet,
  } from 'react-native-elements';
 //import { createStore, combineReducers } from 'redux';
 import { createStackNavigator } from 'react-navigation';
+import ShoppingListItem from '../utils/listItem';
 //import { VisibilityFilters } from '../actions/actions.js';
 
 
@@ -52,6 +53,14 @@ export default class ShoppingList extends React.Component {
          return false;
      }
 
+
+     _renderItem = ({item}) => (
+        <ShoppingListItem
+            name = {item.item}
+        />
+    );
+
+
      /**
       * Render function for React component.
       */
@@ -67,13 +76,7 @@ export default class ShoppingList extends React.Component {
                             data = {this.state.data}
                             extraData = {this.state}
                             keyExtractor = {item => item.item}
-                            renderItem = {({item}) =>
-                                <ListItem
-                                    hideChevron
-                                    switchButton
-                                    title = {`${item.item}`}
-                                />
-                            }
+                            renderItem = {this._renderItem}
                         />
                     </List>
                 </View>
