@@ -15,25 +15,11 @@ export default class App extends React.Component {
     }
 }
 
-// Navigation configurations for a tab navigator that will
-// navigate between the to do list of active items and in active items.
-const tabRouteConfigs = {
-    ActiveList: ShoppingList,
-    InactiveList: CompletedList
-};
-
-const TabNavigatorConfigs = {
-    initialRouteName: 'ActiveList'
-};
-
-const ListNavigator = createBottomTabNavigator(tabRouteConfigs, TabNavigatorConfigs);
-
 
 // Navigation configurations for a stack navigator that represents
-// navigation throughout the entire app. Navigates between the TabNavigator for lists
-// and the addItem component
+// navigation between the active to do list and the addItem component
 const stackRouteConfigs = {
-    ShoppingListName: ListNavigator,
+    ShoppingListName: ShoppingList,
     AddItemName: AddItem
 };
 
@@ -41,4 +27,22 @@ const StackNavigatorConfigs = {
     initialRouteName: 'ShoppingListName'
 };
 
-const AppNavigator = createStackNavigator(stackRouteConfigs, StackNavigatorConfigs);
+const ListAddition = createStackNavigator(stackRouteConfigs, StackNavigatorConfigs);
+
+
+// Navigation configurations for app level navigation via  tab navigator.
+// Will navigate between the to do list of active items and inactive items.
+const tabRouteConfigs = {
+    ActiveList: ListAddition,
+    InactiveList: CompletedList
+};
+
+const TabNavigatorConfigs = {
+    initialRouteName: 'ActiveList',
+    tabBarOptions: {
+        activeTintColor: '#000000',
+        inactiveTintcolor: '#bcbabe'
+    }
+};
+
+const AppNavigator = createBottomTabNavigator(tabRouteConfigs, TabNavigatorConfigs);
