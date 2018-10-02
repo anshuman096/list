@@ -25,6 +25,7 @@ export default class ShoppingListItem extends React.PureComponent {
             itemStatus: this.props.status,
             itemDate: this.props.date
         }
+        //this.props.date is undefined and is not being printed in subtitle -> FIND OUT WHY
     }
 
     render() {
@@ -32,10 +33,9 @@ export default class ShoppingListItem extends React.PureComponent {
             <Swipeable
                 leftContent = {
                     <View style = {styles.checkItemView}>
-                        <Text style = {styles.checkItemText}> Complete Task </Text>;
+                        <Text style = {styles.swipeItemText}> Complete Task </Text>;
                     </View>
                 }
-                leftActionActivationDistance = { 50 }
                 onLeftActionRelease = {() => this.setState({itemStatus: !this.state.itemStatus})}>
                 <ListItem
                     title = {
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'lightgreen'
     },
-    checkItemText: {
+    swipeItemText: {
         fontFamily: 'Avenir-Light',
         fontSize: 20,
         color: 'white'

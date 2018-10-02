@@ -5,7 +5,7 @@ import {
 } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import AddItem from './screens/addItem';
-import ShoppingList from './screens/shoppingList';
+import ActiveList from './screens/activeList';
 import CompletedList from './screens/completedList';
 
 
@@ -13,7 +13,7 @@ import CompletedList from './screens/completedList';
  * navigation between the active to do list and the addItem component
  */
 const stackRouteConfigs = {
-    ListScreen: { screen: ShoppingList },
+    ListScreen: { screen: ActiveList },
     AddItemScreen: { screen: AddItem }
 };
 
