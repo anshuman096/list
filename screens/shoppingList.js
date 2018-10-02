@@ -11,7 +11,7 @@ import { StyleSheet,
      ListItem
  } from 'react-native-elements';
 import { createStackNavigator } from 'react-navigation';
-import ShoppingListItem from '../utils/listItem';
+import ShoppingListItem from '../utils/shoppingListItem';
 
 
 export default class ShoppingList extends React.Component {
@@ -73,7 +73,8 @@ export default class ShoppingList extends React.Component {
       */
      renderItem = ({item}) => (
         <ShoppingListItem
-            name = {item.item}
+            name = {item.name}
+            date = {item.completionDate}
         />
     );
 
@@ -103,7 +104,7 @@ export default class ShoppingList extends React.Component {
                         this.setState({
                             refresh: false
                         });
-                        this.props.navigation.navigate('AddItemName', {data: this.state.active});
+                        this.props.navigation.navigate('AddItemScreen', {data: this.state.active});
                     }}>
                     <Text style = {styles.buttonLabel}>Add Item</Text>
                 </TouchableOpacity>
@@ -148,8 +149,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         paddingTop: 25,
         paddingBottom: 25,
-        fontWeight: 'bold',
-        fontFamily: 'AppleSDGothicNeo-Thin',
+        fontFamily: 'Avenir-Light',
         alignSelf: 'center',
         shadowColor: '#000000',
         shadowOffset: {
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'center',
         fontSize: 25,
-        fontFamily: 'AppleSDGothicNeo-UltraLight',
+        fontFamily: 'Avenir-Light',
         color: '#000000',
         shadowColor: '#000000',
         shadowOffset: {

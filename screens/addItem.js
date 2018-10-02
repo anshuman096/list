@@ -4,9 +4,10 @@ import { View,
     StyleSheet,
     Text,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    DatePickerIOS
 } from 'react-native';
-//import { addTodo } from '../actions/actions.js';
+
 
 
 export default class AddItem extends React.Component {
@@ -22,8 +23,11 @@ export default class AddItem extends React.Component {
         super(props);
         this.state = {
             itemName: "",
-            data: this.props.navigation.state.params.data
+            data: this.props.navigation.state.params.data,
+            completionDate: new Date()
         };
+
+        this.setDate = this.setDate.bind(this);
     }
 
     /**
@@ -34,12 +38,23 @@ export default class AddItem extends React.Component {
      */
     async addItemToList(itemEntered) {
         var itemDict = {
-            item: itemEntered,
+            name: itemEntered,
             active: true,
+            date: this.state.completionDate,
             index: (this.state.data.length + 1).toString()
         }
         await this.state.data.push(itemDict);
-        this.props.navigation.navigate('ShoppingListName', { data:this.state.data });
+        this.props.navigation.navigate('ListScreen', { data:this.state.data });
+    }
+
+    /**
+     * setDate is a function that is bound to this. It is
+     * called whenever the DatePicker is modified and gets
+     * new date. The new Date is set into the new item state.
+     *
+     */
+    setDate(newDate) {
+        this.setState({completionDate: newDate});
     }
 
 
@@ -49,13 +64,23 @@ export default class AddItem extends React.Component {
     render() {
         return(
             <View style = {styles.mainContainer}>
-                <View style = {styles.itemNameContainer}>
-                    <TextInput style = {styles.itemNameLabel}
-                        placeholder = 'Item Name'
-                        autoCapitalize = 'none'
-                        onChangeText = {(text) => this.setState({itemName: text})}
-                        blurOnSubmit = {true}
-                    />
+                <View style = {styles.itemInfoContainer}>
+                    <View style = {styles.nameContainer}>
+                        <TextInput style = {styles.itemNameLabel}
+                            placeholder = 'Item Name'
+                            autoCapitalize = 'none'
+                            onChangeText = {(text) => this.setState({itemName: text})}
+                            blurOnSubmit = {true}
+                            />
+                    </View>
+                    <View style = {styles.dateContainer}>
+                        <DatePickerIOS
+                            mode = "date"
+                            date = {this.state.completionDate}
+                            minimumDate = {this.state.completionDate}
+                            onDateChange = {this.setDate}
+                        />
+                    </View>
                 </View>
                 <TouchableOpacity style = {styles.submitButtonContainer}
                     onPress = { async () => {
@@ -75,12 +100,22 @@ const styles = StyleSheet.create({
         backgroundColor: '#f1f1f2',
         paddingTop: 20
     },
-    itemNameContainer: {
+    itemInfoContainer: {
         flex: 7,
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        justifyContent: 'center',
+        justifyContent: 'space-between',
         backgroundColor: '#f1f1f2'
+    },
+    nameContainer: {
+        flex: 1,
+        alignSelf: 'center',
+        backgroundColor: '#f1f1f2',
+        paddingBottom: 20
+    },
+    dateContainer: {
+        flex: 10
     },
     submitButtonContainer: {
         flex: 0.75,
@@ -89,19 +124,15 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     itemNameLabel: {
-        flex: 1,
-        alignItems: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: '#bcbabe',
-        borderRadius: 8,
-        fontSize: 20
+        fontFamily: 'Avenir-Light',
+        color: '#1995ad',
+        fontSize: 40
     },
     submitButtonLabel: {
         alignSelf: 'center',
         alignItems: 'center',
         fontSize: 25,
-        fontFamily: 'AppleSDGothicNeo-UltraLight',
-        fontWeight: 'bold',
+        fontFamily: 'Avenir-Light',
         color: '#ffffff',
         shadowColor: '#ffffff',
         shadowOffset: {

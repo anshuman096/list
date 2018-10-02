@@ -4,8 +4,12 @@ import {
     Text,
     View
 } from 'react-native';
-import { CheckBox, ListItem } from 'react-native-elements';
+import {
+    CheckBox,
+    ListItem
+} from 'react-native-elements';
 import Swipeable from 'react-native-swipeable';
+
 /**
  * A wrapper class for my to do list's list items. This class simply
  * wraps React Native elements ListItem around a React.PureComponent
@@ -18,7 +22,8 @@ export default class ShoppingListItem extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            itemStatus: !this.props.status
+            itemStatus: this.props.status,
+            itemDate: this.props.date
         }
     }
 
@@ -30,11 +35,18 @@ export default class ShoppingListItem extends React.PureComponent {
                         <Text style = {styles.checkItemText}> Complete Task </Text>;
                     </View>
                 }
+                leftActionActivationDistance = { 50 }
                 onLeftActionRelease = {() => this.setState({itemStatus: !this.state.itemStatus})}>
-                <CheckBox
-                    title = {this.props.name}
-                    checked = {this.state.itemStatus}
-                    onPress = {() => this.setState({itemStatus: !this.state.itemStatus})}
+                <ListItem
+                    title = {
+                        <CheckBox
+                            style = {styles.itemText}
+                            title = {this.props.name}
+                            checked = {this.state.itemStatus}
+                            onPress = {() => this.setState({itemStatus: !this.state.itemStatus})}
+                        />
+                    }
+                    subtitle = {this.state.date}
                 />
             </Swipeable>
         );
@@ -50,8 +62,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'lightgreen'
     },
     checkItemText: {
-        fontFamily: 'AppleSDGothicNeo-SemiBold',
+        fontFamily: 'Avenir-Light',
         fontSize: 20,
         color: 'white'
-    }
+    },
 });
