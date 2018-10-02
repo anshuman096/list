@@ -62,7 +62,7 @@ export default class ActiveList extends React.Component {
      renderItem = ({item}) => (
         <ShoppingListItem
             name = {item.name}
-            date = {item.completionDate}
+            date = {item.date}
             status = {item.active}
         />
     );

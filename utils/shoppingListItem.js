@@ -21,11 +21,11 @@ import Swipeable from 'react-native-swipeable';
 export default class ShoppingListItem extends React.PureComponent {
     constructor(props) {
         super(props);
+        let date = this.props.date.getMonth() + "/" + this.props.date.getDate() + "/" + this.props.date.getFullYear();
         this.state = {
             itemStatus: !this.props.status,
-            itemDate: this.props.date
+            itemDate: date
         }
-        //this.props.date is undefined and is not being printed in subtitle -> FIND OUT WHY
     }
 
     render() {
@@ -38,15 +38,15 @@ export default class ShoppingListItem extends React.PureComponent {
                 }
                 onLeftActionRelease = {() => this.setState({itemStatus: !this.state.itemStatus})}>
                 <ListItem
+                    style = {styles.listItemView}
                     title = {
                         <CheckBox
-                            style = {styles.itemText}
                             title = {this.props.name}
                             checked = {this.state.itemStatus}
                             onPress = {() => this.setState({itemStatus: !this.state.itemStatus})}
                         />
                     }
-                    subtitle = {this.state.date}
+                    subtitle = {this.state.itemDate}
                 />
             </Swipeable>
         );
@@ -66,4 +66,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: 'white'
     },
+    listItemView: {
+        flexDirection: 'column'
+    }
 });
