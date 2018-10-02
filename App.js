@@ -32,7 +32,7 @@ const tabRouteConfigs = {
         screen: ListAddition,
         navigationOptions: {
             tabBarLabel: 'Active',
-            tabBarIcon: ({ tintColor }) => <Icon name = "list" size = {35} color = { tintColor }/>
+            tabBarIcon: ({tintColor}) => <Icon name = "list" size = {35} color = { tintColor }/>
         }
     },
     Completed: {

@@ -22,7 +22,7 @@ export default class ShoppingListItem extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            itemStatus: this.props.status,
+            itemStatus: !this.props.status,
             itemDate: this.props.date
         }
         //this.props.date is undefined and is not being printed in subtitle -> FIND OUT WHY

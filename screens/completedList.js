@@ -13,10 +13,11 @@ import { StyleSheet,
 import ShoppingListItem from '../utils/shoppingListItem';
 
 export default class CompletedList extends React.Component {
+
     /**
      * Initial method called upon creation of Comoonent.
      * This constructor initializes the to do list as an
-     * empty array. Sets the refresh flag to false to start off.
+     * empty array. Sets the refresh flag to true to start off.
      *
      */
     constructor(props) {
@@ -24,13 +25,13 @@ export default class CompletedList extends React.Component {
         this.state = {
             inactive: [
                 {
-                    item: "Dog Food",
+                    name: "Dog Food",
                     active: false,
                     completionDate: new Date(),
                     index: "1"
                 },
                 {
-                    item: "Clothes",
+                    name: "Clothes",
                     active: false,
                     completionDate: new Date(),
                     index: "2"
@@ -39,6 +40,7 @@ export default class CompletedList extends React.Component {
             refresh: true
         }
     }
+
 
 
     /**
@@ -72,6 +74,7 @@ export default class CompletedList extends React.Component {
         <ShoppingListItem
             name = {item.name}
             date = {item.completionDate}
+            status = {item.active}
         />
     );
 
@@ -81,7 +84,6 @@ export default class CompletedList extends React.Component {
       *
       */
     render() {
-        console.log(this.props.navigation.state.routeName);
         return(
             <View style = {styles.mainContainer}>
                 <View style = {styles.titleContainer}>

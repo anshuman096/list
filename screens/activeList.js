@@ -13,7 +13,7 @@ import { StyleSheet,
 import ShoppingListItem from '../utils/shoppingListItem';
 
 
-export default class ShoppingList extends React.Component {
+export default class ActiveList extends React.Component {
     static navigationOptions = { header: null };
 
 
@@ -63,6 +63,7 @@ export default class ShoppingList extends React.Component {
         <ShoppingListItem
             name = {item.name}
             date = {item.completionDate}
+            status = {item.active}
         />
     );
 
@@ -72,38 +73,32 @@ export default class ShoppingList extends React.Component {
       *
       */
     render() {
-        if(this.props.navigation.state.routeName == 'ListScreen') {
-            return(
-                <View style = {styles.mainContainer}>
-                    <View style = {styles.titleContainer}>
-                        <Text style = {styles.titleLabel}>Shopping List</Text>
-                    </View>
-                    <View style = {styles.listContainer}>
-                        <List style = {styles.list}>
-                            <FlatList
-                                data = {this.state.active}
-                                extraData = {this.state}
-                                keyExtractor = {item => item.index}
-                                renderItem = {this.renderItem}
-                            />
-                        </List>
-                    </View>
-                    <TouchableOpacity style = {styles.buttonContainer}
-                        onPress = {() => {
-                            this.setState({
-                                refresh: false
-                            });
-                            this.props.navigation.navigate('AddItemScreen', {data: this.state.active});
-                        }}>
-                            <Text style = {styles.buttonLabel}>Add Item</Text>
-                    </TouchableOpacity>
+        return(
+            <View style = {styles.mainContainer}>
+                <View style = {styles.titleContainer}>
+                    <Text style = {styles.titleLabel}>Shopping List</Text>
                 </View>
-            );
-        } else {
-            console.log("route name in activeList.js -> " + this.props.navigation.state.routeName);
-            this.props.navigation.navigate('Completed');
-        }
-
+                <View style = {styles.listContainer}>
+                    <List style = {styles.list}>
+                        <FlatList
+                            data = {this.state.active}
+                            extraData = {this.state}
+                            keyExtractor = {item => item.index}
+                            renderItem = {this.renderItem}
+                        />
+                    </List>
+                </View>
+                <TouchableOpacity style = {styles.buttonContainer}
+                    onPress = {() => {
+                        this.setState({
+                            refresh: false
+                        });
+                        this.props.navigation.navigate('AddItemScreen', {data: this.state.active});
+                    }}>
+                        <Text style = {styles.buttonLabel}>Add Item</Text>
+                </TouchableOpacity>
+            </View>
+        );
     }
 }
 
