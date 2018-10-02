@@ -34,6 +34,7 @@ export default class ShoppingListItem extends React.PureComponent {
                 <CheckBox
                     title = {this.props.name}
                     checked = {this.state.itemStatus}
+                    onPress = {() => this.setState({itemStatus: !this.state.itemStatus})}
                 />
             </Swipeable>
         );
