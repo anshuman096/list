@@ -10,12 +10,12 @@ import { StyleSheet,
      List,
      ListItem
  } from 'react-native-elements';
-import { createStackNavigator } from 'react-navigation';
 import ShoppingListItem from '../utils/shoppingListItem';
 
 
 export default class ShoppingList extends React.Component {
     static navigationOptions = { header: null };
+
 
     /**
      * Initial method called upon creation of Comoonent.
@@ -27,18 +27,6 @@ export default class ShoppingList extends React.Component {
         super(props);
         this.state = {
             active: [],
-            inactive: [
-                {
-                    item: "Dog Food",
-                    active: false,
-                    index: 1
-                },
-                {
-                    item: "Clothes",
-                    active: false,
-                    index: 2
-                }
-            ],
             refresh: true
         }
     }
@@ -84,32 +72,38 @@ export default class ShoppingList extends React.Component {
       *
       */
     render() {
-        return(
-            <View style = {styles.mainContainer}>
-                <View style = {styles.titleContainer}>
-                    <Text style = {styles.titleLabel}>Shopping List</Text>
+        if(this.props.navigation.state.routeName == 'ListScreen') {
+            return(
+                <View style = {styles.mainContainer}>
+                    <View style = {styles.titleContainer}>
+                        <Text style = {styles.titleLabel}>Shopping List</Text>
+                    </View>
+                    <View style = {styles.listContainer}>
+                        <List style = {styles.list}>
+                            <FlatList
+                                data = {this.state.active}
+                                extraData = {this.state}
+                                keyExtractor = {item => item.index}
+                                renderItem = {this.renderItem}
+                            />
+                        </List>
+                    </View>
+                    <TouchableOpacity style = {styles.buttonContainer}
+                        onPress = {() => {
+                            this.setState({
+                                refresh: false
+                            });
+                            this.props.navigation.navigate('AddItemScreen', {data: this.state.active});
+                        }}>
+                            <Text style = {styles.buttonLabel}>Add Item</Text>
+                    </TouchableOpacity>
                 </View>
-                <View style = {styles.listContainer}>
-                    <List style = {styles.list}>
-                        <FlatList
-                            data = {this.state.active}
-                            extraData = {this.state}
-                            keyExtractor = {item => item.index}
-                            renderItem = {this.renderItem}
-                        />
-                    </List>
-                </View>
-                <TouchableOpacity style = {styles.buttonContainer}
-                    onPress = {() => {
-                        this.setState({
-                            refresh: false
-                        });
-                        this.props.navigation.navigate('AddItemScreen', {data: this.state.active});
-                    }}>
-                    <Text style = {styles.buttonLabel}>Add Item</Text>
-                </TouchableOpacity>
-            </View>
-        );
+            );
+        } else {
+            console.log("route name in activeList.js -> " + this.props.navigation.state.routeName);
+            this.props.navigation.navigate('Completed');
+        }
+
     }
 }
 
@@ -123,9 +117,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
+        paddingBottom: 30,
         backgroundColor: '#1995ad',
-        paddingBottom: 25,
-        borderBottomWidth: 1,
         borderBottomColor: '#1995ad',
         shadowColor: '#000000',
         shadowOffset: {
@@ -147,8 +140,7 @@ const styles = StyleSheet.create({
     },
     titleLabel: {
         fontSize: 30,
-        paddingTop: 25,
-        paddingBottom: 25,
+        padding: 25,
         fontFamily: 'Avenir-Light',
         alignSelf: 'center',
         shadowColor: '#000000',

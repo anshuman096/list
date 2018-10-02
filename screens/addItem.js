@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     itemNameLabel: {
         fontFamily: 'Avenir-Light',
         color: '#1995ad',
-        fontSize: 40
+        fontSize: 30
     },
     submitButtonLabel: {
         alignSelf: 'center',
