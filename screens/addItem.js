@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'center',
         fontSize: 25,
-        fontFamily: 'Avenir',
+        fontFamily: 'AppleSDGothicNeo-UltraLight',
         fontWeight: 'bold',
         color: '#ffffff',
         shadowColor: '#ffffff',

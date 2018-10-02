@@ -74,7 +74,6 @@ export default class ShoppingList extends React.Component {
      renderItem = ({item}) => (
         <ShoppingListItem
             name = {item.item}
-            status = {item.active}
         />
     );
 
@@ -150,7 +149,7 @@ const styles = StyleSheet.create({
         paddingTop: 25,
         paddingBottom: 25,
         fontWeight: 'bold',
-        fontFamily: 'Avenir',
+        fontFamily: 'AppleSDGothicNeo-Thin',
         alignSelf: 'center',
         shadowColor: '#000000',
         shadowOffset: {
@@ -163,7 +162,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'center',
         fontSize: 25,
-        fontFamily: 'Avenir',
+        fontFamily: 'AppleSDGothicNeo-UltraLight',
         color: '#000000',
         shadowColor: '#000000',
         shadowOffset: {
